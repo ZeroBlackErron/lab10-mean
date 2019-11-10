@@ -9,6 +9,7 @@ import { ProductosService } from './productos.service';
 export class AppComponent implements OnInit {
   title = 'lab10-mean';
 
+  // tslint:disable-next-line:ban-types
   lista = null;
   prod = {
     _id: null,
@@ -31,8 +32,8 @@ export class AppComponent implements OnInit {
   nuevo() {
     this.productosServicio.nuevo(this.prod).subscribe(result => {
       if (result === 'ok') {
-        this.limpiar();
         this.recuperarTodos();
+        this.limpiar();
       }
     });
   }
@@ -51,8 +52,8 @@ export class AppComponent implements OnInit {
     this.productosServicio.actualizar(this.prod).subscribe(result => {
       // @ts-ignore
       if (result.nModified === '1') {
-        this.limpiar();
         this.recuperarTodos();
+        this.limpiar();
       }
     });
   }
@@ -65,8 +66,11 @@ export class AppComponent implements OnInit {
   }
 
   hayRegistros() {
-    return true;
+    if (this.lista) {
+      return true;
+    }
   }
+
   limpiar() {
     this.prod = {
       _id: null,
